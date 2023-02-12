@@ -11,6 +11,7 @@ const PORT = process.env.PORT || 3333;
 
 // Middlewares
 app.use(cors());
+// Para poder recibir y enviar datos en formato JSON
 app.use(express.json());
 
 //Base de datos
