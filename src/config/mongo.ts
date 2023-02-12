@@ -1,14 +1,15 @@
 import 'dotenv/config';
-import { connect } from 'mongoose';
+import mongoose from 'mongoose';
 
 async function dbConnect(): Promise<void>{
-    const DB_URI = <string>process.env.MONGO_URL;
-
     try {
-        await connect(DB_URI)
+        mongoose.set('strictQuery', true);
+        await mongoose.connect('mongodb+srv://desarrollo:arica123@cluster0.zrtxt.mongodb.net/?retryWrites=true&w=majority');
         console.log("Conectado a la base de datos");
     } catch (error:any) {
+        console.log(error);
         console.log("Error al conectar con la base de datos");
     }
-
 }
+
+export default dbConnect;
