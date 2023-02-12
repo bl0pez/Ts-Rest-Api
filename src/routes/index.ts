@@ -13,16 +13,14 @@ const router = Router();
 const cleanFileName = (fileName: string) => fileName.replace('.ts', '');
 
 // Recorrer todos los archivos del directorio de rutas
-readdirSync(PATH_ROUTER).forEach((file) => {
-    // Ignorar el archivo index.ts
-    if (file === 'index.ts') return;
+readdirSync(PATH_ROUTER).forEach((fileName) => {
+    const cleanName = cleanFileName(fileName);
 
-    // Importar el archivo de ruta
-    import(`./${cleanFileName(file)}`)
-        .then(({ route }) => {
-            // Agregar la ruta al router
-            router.use(`/${cleanFileName(file)}`, route);
+    if (cleanName !== "index") {
+        import(`./${cleanName}`).then((moduleRouter) => {
+            router.use(`/${cleanName}`, moduleRouter.router);
         });
+    }
 });
 
 export { router }
