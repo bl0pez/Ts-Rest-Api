@@ -13,12 +13,23 @@ services:
       - DB_URI=${DB_URI}
     ports:
       - ${PORT}:${PORT}
-
   db:
-    image: mongo:6
+    image: mongo
     restart: always
-    container_name: ts-rest-api-db
+    ports:
+      - 27017:27017
     environment:
-      - MONGO_DATABASE=${MONGO_DATABASE}
+      - MONGODB_DATABASE= ts-rest-api
     volumes:
-      - ./data:/data/db
+      - ./mongo:/data/db
+
+  # db:
+  #   image: mongo
+  #   restart: always
+  #   container_name: ts-rest-api-db
+  #   environment:
+  #     - MONGO_DATABASE=${MONGO_DATABASE}
+  #   ports:
+  #     - 27017:27017
+  #   volumes:
+  #     - ./data:/data/db
